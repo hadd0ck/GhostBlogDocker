@@ -1,6 +1,6 @@
 # Ghost + Nginx + Lets Encrypt (production ready)
 
-![ghost.png](https://github.com/gregbkr/ghost-nginx-ssl-docker/raw/master/ghost.png)
+![ghost.png](https://github.com/hadd0ck/GhostBlogDocker/raw/master/ghost.png)
 
 An easy setup to deploy quickly your blogging platform:
 - Ghost: very easy way to publish your blog (straight writing in a web page and no coding), could get some nice templates for free.
@@ -10,25 +10,25 @@ An easy setup to deploy quickly your blogging platform:
 Notes: 
 - Ghost official docker image for dev is working great out of the box. But for production, I couldn't find other way than create a quick build for adding the config.json for ghost (probably because of perm issue as the image is not running as root, which is great for a web-front). With this workaround you still control the setup.
 
-### 1. Prerequisit:
-- Ubuntu like OS
+### 1. Prerequisite:
+- Ubuntu OS
 - docker & docker-compose
-- a DNS (ec.satoshi.tech in this example) pointing to your server IP
+- a DNS (Blogciso.com in this example) pointing to the server IP
 
 ### 2. Build and run
 
 Copy code from repo:
 
-    git clone https://github.com/gregbkr/ghost-nginx-ssl-docker blog && cd blog
+    git clone https://github.com/hadd0ck/GhostBlogDocker blog && cd blog
 
 Use lets encrypt to get the certificate (replace domain and email with your own)
 
-    docker run -it --rm -p 443:443 -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt" quay.io/letsencrypt/letsencrypt:latest certonly --standalone --domain ec.satoshi.tech --email gregbkr@outlook.com --quiet --noninteractive --rsa-key-size 4096 --agree-tos --standalone-supported-challenges http-01
-    # --force-renewal   <-- add this flat to force renew a way before expiration  
+    docker run -it --rm -p 443:443 -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt" quay.io/letsencrypt/letsencrypt:latest certonly --standalone --domain blogciso.com --email romain.braud@me.com --quiet --noninteractive --rsa-key-size 4096 --agree-tos --standalone-supported-challenges http-01
+
 
 Edit configs with your settings:
 
-    nano nginx/blog.conf  <-- url & email
+    nano nginx/blog.conf  <-- blog url & email
     nano ghost/config.js  <-- server_name
     nano docker-compose.yml  <-- your cert name
 
