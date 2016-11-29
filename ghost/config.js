@@ -8,8 +8,18 @@ var path = require('path'),
 
 config = {
     production: {
-        url: 'http://ec.satoshi.tech',
-        mail: {},
+        url: 'http://blogciso.com',
+        mail: {
+                transport: 'SMTP',
+                from: '"Blog Admin" <admin@blogciso.com>',
+                options: {
+                        service: 'Gmail',
+                        auth: {
+                                user: 'moderncisoblog@gmail.com',
+                                pass: '2F&hl=en'
+                        }
+                }
+        },
         database: {
             client: 'sqlite3',
             connection: {
