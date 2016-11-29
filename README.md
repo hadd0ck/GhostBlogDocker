@@ -9,7 +9,7 @@ Setup to deploy quickly your blogging platform:
 
 Notes: 
 - Ghost official docker image for developers is ready for test environment but not for production.
-This Docker image simplify the 
+This Docker image simplify the use in production.
 
 
 ### 1. Prerequisite:
@@ -22,6 +22,8 @@ This Docker image simplify the
 Copy code from repo:
 
     git clone https://github.com/hadd0ck/GhostBlogDocker blog && cd blog
+
+Before generating the certificate, make sure the Domain Name is pointing to the new server builded
 
 Use lets encrypt to generate and get the certificate (replace domain and email with your own)
 
