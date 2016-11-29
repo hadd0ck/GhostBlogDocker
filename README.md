@@ -1,17 +1,19 @@
-# Ghost + Nginx + Lets Encrypt (production ready)
+# Ghost + Nginx + Lets Encrypt (optional)
 
 ![ghost.png](https://github.com/hadd0ck/GhostBlogDocker/raw/master/ghost.png)
 
-An easy setup to deploy quickly your blogging platform:
-- Ghost: very easy way to publish your blog (straight writing in a web page and no coding), could get some nice templates for free.
-- docker-compose: portable and easy to deploy, running in one command. 
-- Nginx: for proxy and easy/free SSL certificate with LetsEncrypt.
+Setup to deploy quickly your blogging platform:
+- Ghost: easy way to publish your blog
+- docker-compose: portable and powerful tool to deploy, running in one command. 
+- Nginx: a web proxy with a free SSL certificate via LetsEncrypt or import your own Certificate.
 
 Notes: 
-- Ghost official docker image for dev is working great out of the box. But for production, I couldn't find other way than create a quick build for adding the config.json for ghost (probably because of perm issue as the image is not running as root, which is great for a web-front). With this workaround you still control the setup.
+- Ghost official docker image for dev is working great out of the box but not for production.
+
+
 
 ### 1. Prerequisite:
-- Ubuntu OS
+- Linux
 - docker & docker-compose
 - a DNS (Blogciso.com in this example) pointing to the server IP
 
@@ -28,14 +30,19 @@ Use lets encrypt to get the certificate (replace domain and email with your own)
 
 Edit configs with your settings:
 
-    nano nginx/blog.conf  <-- blog url & email
-    nano ghost/config.js  <-- server_name
+     
+    nano ghost/config.js <-- blog url & email details
+    nano nginx/blog.conf <-- server_name & ssl_certificate & ssl_certificate_key
     nano docker-compose.yml  <-- your cert name
 
 Run docker
 
     docker-compose up -d --build
 
+
+Run 
+
+https://blogciso.com/ghost/setup/one/
 
 ### 3. Templates
 
