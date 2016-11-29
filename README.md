@@ -91,7 +91,7 @@ With crontab:
 00 01 * * 1 /bin/bash -c "docker stop blog_ghost_1 && tar -zcvf /root/backup/ghost/ghost-$(date -I).tar.gz -C /var/lib/docker/volumes/blog_ghost/_data/ . && docker start blog_ghost_1"
 ```
 
-### 5. LetsEncrypt
+### 5. Lets Encrypt
 
 LetsEncrypt give you for free a certificate valid for 3 months. Many company migrated to this open CA because of price and security. The only way you can get a certificate for a domain is if this domain targets the ip where you run the command. So it means that you control the DNS and the server, that's the requirement for certificate delivery.
 
