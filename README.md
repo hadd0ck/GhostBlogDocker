@@ -22,20 +22,31 @@ This Docker image simplify the use in production.
 Copy code from repo:
 
     git clone https://github.com/hadd0ck/GhostBlogDocker blog && cd blog
+    
+    
+Setup SSL
 
-Before generating the certificate, make sure the Domain Name is pointing to the new server builded
+    mkdir -p /etc/ssl/private /etc/ssl/certs openssl dhparam -out /etc/ssl/private/dhparams_4096.pem 4096     <-- Diffie Hellman Key Exchange to improve security (this might take a while to generate)
+    
+Before generating the certificate with letsencrypt, make sure the Domain Name is pointing to the new server builded
 
-Use lets encrypt to generate and get the certificate (replace domain and email with your own)
+Use letsencrypt to generate and get the certificate (replace domain and email with your own)
 
     docker run -it --rm -p 443:443 -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt" quay.io/letsencrypt/letsencrypt:latest certonly --standalone --domain blogciso.com --email romain.braud@me.com --quiet --noninteractive --rsa-key-size 4096 --agree-tos --standalone-supported-challenges http-01
 
+Or you can import your own certificate in the folder below:
+
+    /etc/ssl/certs/your_domain.crt /etc/ssl/private/your_domain.key
+
+Or create a selfsigned for test purpose:
+
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt 
 
 Edit configs with your settings:
 
      
     nano ghost/config.js <-- blog url & email details
     nano nginx/blog.conf <-- server_name & ssl_certificate & ssl_certificate_key
-    nano docker-compose.yml  <-- your cert name
 
 Run the Docker containers
 
@@ -45,9 +56,9 @@ Run the Docker containers
 
 Open the link in the browser and setup your admin user 
 
-https://blogciso.com/ghost/setup/one/
+    https://blogciso.com/ghost/setup/one/
 
-To add theme you can use the GUI under the preferences 
+To add theme you can use the GUI under settings/general 
 
 or
 
@@ -59,7 +70,7 @@ Copy in ghost & restart
  
     docker cp templates/Cle blog_ghost_1:/var/lib/ghost/themes/
 
-Now template Cle is available in settings/general
+Now template Cle is available under settings/general
 
 
 ### 4. Backup and restore
@@ -79,3 +90,21 @@ With crontab:
 # Backup Ghost Blog: weely, monday at 01:00
 00 01 * * 1 /bin/bash -c "docker stop blog_ghost_1 && tar -zcvf /root/backup/ghost/ghost-$(date -I).tar.gz -C /var/lib/docker/volumes/blog_ghost/_data/ . && docker start blog_ghost_1"
 ```
+
+### 5. LetsEncrypt
+
+LetsEncrypt give you for free a certificate valid for 3 months. Many company migrated to this open CA because of price and security. The only way you can get a certificate for a domain is if this domain targets the ip where you run the command. So it means that you control the DNS and the server, that's only what we need to be sure the certificate could be delivered.
+
+To update your certificate, you can do manually:
+
+    docker-compose stop
+    
+    docker run -it --rm -p 443:443 -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt" quay.io/letsencrypt/letsencrypt:latest certonly --standalone --domain blogciso.com --email romain.braud@me.com --quiet --noninteractive --rsa-key-size 4096 --agree-tos --standalone-supported-challenges http-01
+    
+    docker-compose up -d --build
+
+Or a script in a crontab.
+
+The email you registered the certificate will be warn few weeks before the vertification will expired.
+
+To force renew, a way before the expiration date, use the flag: --force-renewal
