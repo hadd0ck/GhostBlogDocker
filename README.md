@@ -5,7 +5,7 @@
 Setup to deploy quickly your blogging platform:
 - Ghost: Easy way to publish blog posts
 - docker-compose: portable and powerful tool used to deploy, run multiple docker containers in one command-line. 
-- Nginx: a web proxy with a free SSL certificate via LetsEncrypt or import your own Certificate.
+- Nginx: a web proxy with a free SSL certificate via LetsEncrypt (or import your own Certificate).
 
 Notes: 
 - Ghost official docker image for developers is ready for test environment but not for production.
