@@ -9,13 +9,15 @@ var path = require('path'),
 config = {
     production: {
         url: 'http://blogciso.com',
+        
+        // ### insert your own email account below
         mail: {
                 transport: 'SMTP',
                 from: '"Blog Admin" <admin@blogciso.com>',
                 options: {
                         service: 'Gmail',
                         auth: {
-                                user: 'moderncisoblog@gmail.com',
+                                user: 'moderncisoblog@gmail.com',     
                                 pass: '2F&hl=en'
                         }
                 }
