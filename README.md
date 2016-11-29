@@ -3,19 +3,19 @@
 ![ghost.png](https://github.com/hadd0ck/GhostBlogDocker/raw/master/ghost.png)
 
 Setup to deploy quickly your blogging platform:
-- Ghost: easy way to publish your blog
-- docker-compose: portable and powerful tool to deploy, running in one command. 
+- Ghost: Easy way to publish blog posts
+- docker-compose: portable and powerful tool used to deploy, run multiple docker containers in one command-line. 
 - Nginx: a web proxy with a free SSL certificate via LetsEncrypt or import your own Certificate.
 
 Notes: 
-- Ghost official docker image for dev is working great out of the box but not for production.
-
+- Ghost official docker image for developers is ready for test environment but not for production.
+This Docker image simplify the 
 
 
 ### 1. Prerequisite:
-- Linux
-- docker & docker-compose
-- a DNS (Blogciso.com in this example) pointing to the server IP
+- Linux (Ubuntu in this case)
+- Docker & Docker-compose
+- A Domain (Blogciso.com in this example) pointing to the server IP
 
 ### 2. Build and run
 
@@ -23,7 +23,7 @@ Copy code from repo:
 
     git clone https://github.com/hadd0ck/GhostBlogDocker blog && cd blog
 
-Use lets encrypt to get the certificate (replace domain and email with your own)
+Use lets encrypt to generate and get the certificate (replace domain and email with your own)
 
     docker run -it --rm -p 443:443 -p 80:80 --name certbot -v "/etc/letsencrypt:/etc/letsencrypt" -v "/var/lib/letsencrypt:/var/lib/letsencrypt" quay.io/letsencrypt/letsencrypt:latest certonly --standalone --domain blogciso.com --email romain.braud@me.com --quiet --noninteractive --rsa-key-size 4096 --agree-tos --standalone-supported-challenges http-01
 
@@ -35,20 +35,21 @@ Edit configs with your settings:
     nano nginx/blog.conf <-- server_name & ssl_certificate & ssl_certificate_key
     nano docker-compose.yml  <-- your cert name
 
-Run docker
+Run the Docker containers
 
     docker-compose up -d --build
 
+### 3. Administration
 
-Run 
+Open the link in the browser and setup your admin user 
 
 https://blogciso.com/ghost/setup/one/
 
-### 3. Templates
+To add theme you can use the GUI under the preferences 
 
-Throught GUI or in command line below:
+or
 
-Get a template
+you can from the commandline on the server like the example below
 
     git clone https://github.com/phongtruongg/Cle templates/Cle
 
@@ -61,7 +62,7 @@ Now template Cle is available in settings/general
 
 ### 4. Backup and restore
 
-We just need to backup the folder /var/lib/ghost while the ghost container is stopped (for data persistency).
+Simply backup the folder /var/lib/ghost while the ghost container is stopped (for data persistency).
 
 With script:
 
