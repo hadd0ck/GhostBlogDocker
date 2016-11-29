@@ -12,7 +12,7 @@ Notes:
 This Docker image simplify the use in production.
 
 
-### 1. Prerequisite:
+### 1. Prerequisite
 - Linux (Ubuntu in this case)
 - Docker & Docker-compose
 - A Domain (Blogciso.com in this example) pointing to the server IP
