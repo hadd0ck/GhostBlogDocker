@@ -26,7 +26,7 @@ Copy code from repo:
     
 Setup SSL:
 
-    mkdir -p /etc/ssl/private /etc/ssl/certs openssl dhparam -out /etc/ssl/private/dhparams_4096.pem 4096     <-- Diffie Hellman Key Exchange to improve security (this might take a while to generate)
+    mkdir -p /etc/ssl/private /etc/ssl/certs && openssl dhparam -out /etc/ssl/private/dhparams_4096.pem 4096     <-- Diffie Hellman Key Exchange to improve security (this might take a while to generate)
     
 Before generating the certificate with letsencrypt, make sure the Domain Name is pointing to the new server builded
 
