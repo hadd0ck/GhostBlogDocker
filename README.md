@@ -44,8 +44,9 @@ Or create a selfsigned for test purpose:
 
 Edit configs with your settings:
      
-    nano ghost/config.js <-- blog url & email details
-    nano nginx/blog.conf <-- server_name & ssl_certificate & ssl_certificate_key
+    nano ghost/config.js <-- replace blog url & email details
+    nano nginx/blog.conf <-- replace server_name & ssl_certificate & ssl_certificate_key
+    nano docker-compose.yml <-- replace in the paths with your domain name
 
 Run the Docker containers
 
