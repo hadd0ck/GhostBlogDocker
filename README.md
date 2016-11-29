@@ -51,7 +51,7 @@ To add theme you can use the GUI under the preferences
 
 or
 
-you can from the commandline on the server like the example below
+You can from the commandline on the server like the example below
 
     git clone https://github.com/phongtruongg/Cle templates/Cle
 
@@ -70,7 +70,7 @@ With script:
 
     scripts/backup.sh
 
-With crontab
+With crontab:
 
 ```
 # Backup Ghost Blog: daily at 12:00 (noon)
