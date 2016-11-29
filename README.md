@@ -24,7 +24,7 @@ Copy code from repo:
     git clone https://github.com/hadd0ck/GhostBlogDocker blog && cd blog
     
     
-Setup SSL
+Setup SSL:
 
     mkdir -p /etc/ssl/private /etc/ssl/certs openssl dhparam -out /etc/ssl/private/dhparams_4096.pem 4096     <-- Diffie Hellman Key Exchange to improve security (this might take a while to generate)
     
@@ -43,7 +43,6 @@ Or create a selfsigned for test purpose:
     sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt 
 
 Edit configs with your settings:
-
      
     nano ghost/config.js <-- blog url & email details
     nano nginx/blog.conf <-- server_name & ssl_certificate & ssl_certificate_key
@@ -54,7 +53,7 @@ Run the Docker containers
 
 ### 3. Administration
 
-Open the link in the browser and setup your admin user 
+Open the link in the browser and setup the admin user 
 
     https://blogciso.com/ghost/setup/one/
 
@@ -62,7 +61,7 @@ To add theme you can use the GUI under settings/general
 
 or
 
-You can from the commandline on the server like the example below
+it's possible from the command line directly from the server like the example below
 
     git clone https://github.com/phongtruongg/Cle templates/Cle
 
@@ -93,7 +92,7 @@ With crontab:
 
 ### 5. LetsEncrypt
 
-LetsEncrypt give you for free a certificate valid for 3 months. Many company migrated to this open CA because of price and security. The only way you can get a certificate for a domain is if this domain targets the ip where you run the command. So it means that you control the DNS and the server, that's only what we need to be sure the certificate could be delivered.
+LetsEncrypt give you for free a certificate valid for 3 months. Many company migrated to this open CA because of price and security. The only way you can get a certificate for a domain is if this domain targets the ip where you run the command. So it means that you control the DNS and the server, that's the requirement for certificate delivery.
 
 To update your certificate, you can do manually:
 
